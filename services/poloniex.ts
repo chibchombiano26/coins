@@ -1,13 +1,19 @@
-/// <reference path="../typings/modules/autobahn/autobahn.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 import * as autobahn from "autobahn";
+import * as request from "request";
+import {transformObject} from "../util/transformObject"
+import {poloniex} from "../model/index"
 
  export class Polinex{
 
      wsuri : string = "wss://api.poloniex.com";
+     urlAllCoins : string = "https://poloniex.com/public?command=returnTicker";
      connection : autobahn.Connection;
+     util : transformObject;
 
      constructor() {
 
+        this.util = new transformObject()
         this.connection = new autobahn.Connection({
            url: this.wsuri,
            realm: "realm1"
@@ -20,6 +26,15 @@ import * as autobahn from "autobahn";
         
         this.connection.open();
      }   
+
+     getAllCoins() : any{
+        let currencies : any;
+        request(this.urlAllCoins, (error, response, body) =>{
+            currencies = this.util.iterateProperties(JSON.parse(body));
+            console.log(body);
+        });
+     }
+
 
      /*onTickerEvent(args: Array<any>): void {
         console.log("Event:", args[0]);
