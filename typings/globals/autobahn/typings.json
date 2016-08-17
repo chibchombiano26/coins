@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/d681a05fa258766416fb98159a5189921ec3ad64/autobahn/autobahn.d.ts",
+    "raw": "registry:dt/autobahn#0.9.6+20160731202440",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/d681a05fa258766416fb98159a5189921ec3ad64/autobahn/autobahn.d.ts"
+  }
+}

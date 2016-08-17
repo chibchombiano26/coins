@@ -2,7 +2,7 @@
 import * as autobahn from "autobahn";
 import * as request from "request";
 import {transformObject} from "../util/transformObject"
-import {poloniex} from "../model/index"
+import {poloniex} from "../models/model/index"
 
  export class Polinex{
 

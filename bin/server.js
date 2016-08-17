@@ -14,4 +14,5 @@ var server = (function () {
     return server;
 }());
 exports.server = server;
+new server();
 //# sourceMappingURL=server.js.map

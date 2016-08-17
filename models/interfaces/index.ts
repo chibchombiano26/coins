@@ -1,1 +1,1 @@
-export * from "./poloniex";
+export * from "./IPoloniex";
