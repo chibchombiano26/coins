@@ -1,6 +1,4 @@
 /// <reference path="../typings/index.d.ts" />
-
-
 import { poloniex } from '../models/model/index';
 import * as moment from "moment";
 
@@ -11,9 +9,8 @@ export class transformObject{
         
     }
 
-    convertToObjectToType(obj:any) : poloniex {
-        debugger
-        let poloniex : poloniex;
+    convertToObjectToType(obj:any) : poloniex {        
+        var poloniex: any = new Object();        
         poloniex.baseVolume = parseFloat(obj.baseVolume);
         poloniex.currencyPair = "";
         poloniex.date = new Date();
@@ -25,10 +22,8 @@ export class transformObject{
         poloniex.low24hr = parseFloat(obj.low24hr);
         poloniex.lowestAsk = parseFloat(obj.lowestAsk);
         poloniex.percentChange = parseFloat(obj.percentChange);
-        poloniex.quoteVolume = parseFloat(obj.quoteVolume);   
-
-        
-        return poloniex;
+        poloniex.quoteVolume = parseFloat(obj.quoteVolume);
+        return <poloniex>poloniex;
     }
 
 

@@ -1,12 +1,10 @@
-/// <reference path="../typings/index.d.ts" />
 "use strict";
 var moment = require("moment");
 var transformObject = (function () {
     function transformObject() {
     }
     transformObject.prototype.convertToObjectToType = function (obj) {
-        debugger;
-        var poloniex;
+        var poloniex = new Object();
         poloniex.baseVolume = parseFloat(obj.baseVolume);
         poloniex.currencyPair = "";
         poloniex.date = new Date();

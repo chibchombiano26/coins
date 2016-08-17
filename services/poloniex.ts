@@ -27,12 +27,19 @@ import {poloniex} from "../models/model/index"
         this.connection.open();
      }   
 
-     getAllCoins() : any{
-        let currencies : any;
-        request(this.urlAllCoins, (error, response, body) =>{
-            currencies = this.util.iterateProperties(JSON.parse(body));
-            console.log(body);
+     getAllCoins() : Promise<any>{
+        
+        let promise = new Promise((resolve, reject) => {
+            let currencies : any;
+            request(this.urlAllCoins, (error, response, body) =>{
+                currencies = this.util.iterateProperties(JSON.parse(body));                
+                resolve(currencies);
+            });            
         });
+
+        return promise;
+
+        
      }
 
 

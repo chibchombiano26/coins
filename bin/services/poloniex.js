@@ -20,11 +20,14 @@ var Polinex = (function () {
     }
     Polinex.prototype.getAllCoins = function () {
         var _this = this;
-        var currencies;
-        request(this.urlAllCoins, function (error, response, body) {
-            currencies = _this.util.iterateProperties(JSON.parse(body));
-            console.log(body);
+        var promise = new Promise(function (resolve, reject) {
+            var currencies;
+            request(_this.urlAllCoins, function (error, response, body) {
+                currencies = _this.util.iterateProperties(JSON.parse(body));
+                resolve(currencies);
+            });
         });
+        return promise;
     };
     return Polinex;
 }());

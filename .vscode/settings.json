@@ -3,6 +3,9 @@
   "files.exclude": {
   "**/.git": true,  
   "**/**/*.js": true,
-  "**/**/*.js.map": true  
+  "**/**/*.js.map": true,
+  "services/**/*.js": true,
+  "models/**/*.js": true,
+  "util/**/*.js": true
   }
 }

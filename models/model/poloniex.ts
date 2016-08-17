@@ -16,8 +16,6 @@ export class poloniex implements IPoloniex {
         public date: Date,
         public epoch: number,
         public currencyPair: string) {
-
-
     }
 
 }
