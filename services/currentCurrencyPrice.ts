@@ -33,7 +33,7 @@ export class currentCurrencyPrice {
                     high24hr: 0,
                     highestBid: 0,
                     isFrozen: 0,
-                    last: 0,
+                    last: parseFloat(__poloniex.Rate),
                     low24hr: 0,
                     lowestAsk: parseFloat(__poloniex.Rate),
                     percentChange: 0,
