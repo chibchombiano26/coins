@@ -2,7 +2,7 @@
 var interval = (function () {
     function interval() {
     }
-    interval.tick = 1000 * 6 * 1;
+    interval.tick = 1000 * 60 * 10;
     return interval;
 }());
 exports.interval = interval;
