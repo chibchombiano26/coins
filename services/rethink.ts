@@ -2,7 +2,7 @@
 import * as r from "rethinkdb";
 
 
-export class rethinkdb{
+export class rethinkdb {
 
     conn:r.Connection;
 

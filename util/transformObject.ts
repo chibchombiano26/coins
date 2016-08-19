@@ -9,6 +9,26 @@ export class transformObject{
         
     }
 
+    convertToObject(arr:any) : poloniex {
+        
+        let data = {
+                currencyPair: arr[0],
+                last: parseFloat(arr[1]),
+                lowestAsk: parseFloat(arr[2]),
+                highestBid: parseFloat(arr[3]),
+                percentChange: parseFloat(arr[4]),
+                baseVolume: parseFloat(arr[5]),
+                quoteVolume: parseInt(arr[6]),
+                isFrozen: arr[7],
+                high24hr: parseFloat(arr[8]),
+                low24hr: parseFloat(arr[9]),
+                date: new Date(),
+                epoch : moment().valueOf()
+        }
+
+        return <poloniex>data;
+    }
+
     convertToObjectToType(obj:any) : poloniex {        
         var poloniex: any = new Object();        
         poloniex.baseVolume = parseFloat(obj.baseVolume);
