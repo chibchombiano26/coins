@@ -17,6 +17,9 @@ export class rethinkdb {
     }
 
     connecDb(){
+
+        console.log("Connecting...", process.env.RDB_HOST || interval.dbConnection, process.env.RDB_PORT || interval.dbConnectionPort );
+        
         r.connect({
             host: process.env.RDB_HOST || interval.dbConnection, 
             port: process.env.RDB_PORT || interval.dbConnectionPort,
@@ -26,6 +29,7 @@ export class rethinkdb {
             if(err){
                 setTimeout(()=>{
                     this.connecDb();
+                    console.log("Timeout fired");
                 },interval.tickCreation)
                 return;
             }

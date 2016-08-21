@@ -15,19 +15,18 @@ travis encrypt DOCKER_USER=chibchombiano26 --add env.global
 travis encrypt DOCKER_PASS=iguazo262 --add env.global
 
 //Create a respository insert on .travis.yml
-
-db:
+//First external port then local
+dbcoin:
   image: 'rethinkdb:latest'
   ports:
-    - '8080:8082'
-    - '28015:28017'
-web:
+    - '8085:8080'
+    - '28017:28015'
+servercoin:
   environment:
-    - PROJECT_NAME=Hefesoft
-    - RDB_HOST=db
+    - RDB_HOST=dbcoin
     - RDB_PORT=28017
-  image: 'chibchombiano26/coins'
+  image: 'chibchombiano26/coins:latest'
   links:
-    - db
+    - dbcoin
   ports:
-    - '80:8081'
+    - '8084:80'
