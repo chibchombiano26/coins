@@ -10,9 +10,9 @@ docker-compose build --no-cache
 
 
 gem install travis
-travis encrypt DOCKER_EMAIL=<docker-cloud-email> --add env.global
-travis encrypt DOCKER_USER=<docker-cloud-user> --add env.global
-travis encrypt DOCKER_PASS=<-docker-cloud-pass> --add env.global
+travis encrypt DOCKER_EMAIL=jose.douglas.ramirez@outlook.com --add env.global
+travis encrypt DOCKER_USER=chibchombiano26 --add env.global
+travis encrypt DOCKER_PASS=iguazo262 --add env.global
 
 //Create a respository insert on .travis.yml
 
