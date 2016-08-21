@@ -15,3 +15,19 @@ travis encrypt DOCKER_USER=<docker-cloud-user> --add env.global
 travis encrypt DOCKER_PASS=<-docker-cloud-pass> --add env.global
 
 //Create a respository insert on .travis.yml
+
+db:
+  image: 'rethinkdb:latest'
+  ports:
+    - '8080:8080'
+    - '28015:28015'
+web:
+  environment:
+    - PROJECT_NAME=Hefesoft
+    - RDB_HOST=db
+    - RDB_PORT=28015
+  image: 'chibchombiano26/coins'
+  links:
+    - db
+  ports:
+    - '80:8081'
