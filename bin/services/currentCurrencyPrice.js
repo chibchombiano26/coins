@@ -11,7 +11,10 @@ var currentCurrencyPrice = (function () {
         var _this = this;
         setInterval(function () {
             _this.getValue();
-            db.doSave(_this.getPoloniexValue(), tableName);
+            try {
+                db.doSave(_this.getPoloniexValue(), tableName);
+            }
+            catch (ex) { }
         }, index_1.interval.tick);
     }
     currentCurrencyPrice.prototype.getPoloniexValue = function () {

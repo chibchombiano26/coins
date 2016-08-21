@@ -13,8 +13,8 @@ export class currentCurrencyPrice {
     constructor() {
 
         setInterval(() => {
-            this.getValue();            
-            db.doSave(this.getPoloniexValue(), tableName);
+            this.getValue();
+            try{db.doSave(this.getPoloniexValue(), tableName);} catch(ex){}
         }, interval.tick);
 
     }

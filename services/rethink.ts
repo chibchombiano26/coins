@@ -86,7 +86,7 @@ export class rethinkdb {
          if (this.conn) {
             r.db(interval.dbName).table(tableName).insert(data).run(this.conn, (err, res) =>{
                 if (err) throw err;
-                console.log(res);
+                //console.log(res);
             })
         }
     }

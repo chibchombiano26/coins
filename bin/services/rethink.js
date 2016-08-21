@@ -73,7 +73,7 @@ var rethinkdb = (function () {
             r.db(index_1.interval.dbName).table(tableName).insert(data).run(this.conn, function (err, res) {
                 if (err)
                     throw err;
-                console.log(res);
+                //console.log(res);
             });
         }
     };
