@@ -1,13 +1,17 @@
 "use strict";
 var poloniex_1 = require("../models/model/poloniex");
 var index_1 = require("../constants/index");
+var index_2 = require("../services/index");
 var YQL = require('yql');
 var poloniexValue;
+var db = new index_2.rethinkdb();
+var tableName = index_1.interval.tableNames[1];
 var currentCurrencyPrice = (function () {
     function currentCurrencyPrice() {
         var _this = this;
         setInterval(function () {
             _this.getValue();
+            db.doSave(_this.getPoloniexValue(), tableName);
         }, index_1.interval.tick);
     }
     currentCurrencyPrice.prototype.getPoloniexValue = function () {

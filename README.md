@@ -6,6 +6,7 @@ docker build -t coins .
 docker run -i -t coins
 
 //Refresh
+sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm
 docker-compose build --no-cache
 docker-compose up -d
 

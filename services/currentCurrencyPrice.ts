@@ -1,8 +1,11 @@
 import {poloniex} from "../models/model/poloniex";
 import { interval } from "../constants/index";
-let YQL = require('yql');
+import { rethinkdb } from "../services/index";
 
+let YQL = require('yql');
 let poloniexValue: poloniex;
+let db : rethinkdb = new rethinkdb();
+let tableName = interval.tableNames[1];
 
 export class currentCurrencyPrice {
 
@@ -10,7 +13,8 @@ export class currentCurrencyPrice {
     constructor() {
 
         setInterval(() => {
-            this.getValue();
+            this.getValue();            
+            db.doSave(this.getPoloniexValue(), tableName);
         }, interval.tick);
 
     }

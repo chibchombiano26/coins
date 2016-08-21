@@ -55,8 +55,7 @@ class server{
          if (allCoins) {
             allCoins[obj.currencyPair] = obj;
         }
-
-        //console.log("Event:", (allCoins[obj.currencyPair]).currencyPair);
+        
      }
  
 
