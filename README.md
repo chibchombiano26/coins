@@ -7,7 +7,7 @@ docker run -i -t coins
 
 //Refresh
 docker-compose build --no-cache
-
+docker-compose up -d
 
 gem install travis
 travis encrypt DOCKER_EMAIL=jose.douglas.ramirez@outlook.com --add env.global
@@ -29,4 +29,4 @@ servercoin:
   links:
     - dbcoin
   ports:
-    - '8084:80'
+    - '8084:8080'

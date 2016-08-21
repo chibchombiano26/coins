@@ -13,6 +13,7 @@ var rethinkdb = (function () {
     }
     rethinkdb.prototype.connecDb = function () {
         var _this = this;
+        console.log("Connecting...", process.env.RDB_HOST || index_1.interval.dbConnection, process.env.RDB_PORT || index_1.interval.dbConnectionPort);
         r.connect({
             host: process.env.RDB_HOST || index_1.interval.dbConnection,
             port: process.env.RDB_PORT || index_1.interval.dbConnectionPort,
@@ -21,6 +22,7 @@ var rethinkdb = (function () {
             if (err) {
                 setTimeout(function () {
                     _this.connecDb();
+                    console.log("Timeout fired");
                 }, index_1.interval.tickCreation);
                 return;
             }

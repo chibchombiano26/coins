@@ -42,7 +42,7 @@ var server = (function () {
         if (allCoins) {
             allCoins[obj.currencyPair] = obj;
         }
-        console.log("Event:", (allCoins[obj.currencyPair]).currencyPair);
+        //console.log("Event:", (allCoins[obj.currencyPair]).currencyPair);
     };
     return server;
 }());
