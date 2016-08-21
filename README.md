@@ -19,13 +19,13 @@ travis encrypt DOCKER_PASS=<-docker-cloud-pass> --add env.global
 db:
   image: 'rethinkdb:latest'
   ports:
-    - '8080:8080'
-    - '28015:28015'
+    - '8080:8082'
+    - '28015:28017'
 web:
   environment:
     - PROJECT_NAME=Hefesoft
     - RDB_HOST=db
-    - RDB_PORT=28015
+    - RDB_PORT=28017
   image: 'chibchombiano26/coins'
   links:
     - db

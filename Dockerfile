@@ -1,4 +1,4 @@
-FROM nodesource/trusty:4.4.7
+FROM nodesource/trusty:6.2.0
 
 
 WORKDIR /usr/src/app
