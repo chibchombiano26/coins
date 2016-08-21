@@ -6,11 +6,11 @@ import { interval } from "./constants/index";
 let util: transformObject = new transformObject();
 let allCoins:any;
 let currencyPrice = new currentCurrencyPrice();
+let db : rethinkdb = new rethinkdb();
 
 class server{
 
-    poloniexService : Polinex;    
-    db : rethinkdb = new rethinkdb();
+    poloniexService : Polinex;
 
     constructor() {
 
@@ -24,16 +24,27 @@ class server{
             allCoins = coins;
         })
 
+        this.doSave();
+    }
+
+    doSave(){
+        try{
         setInterval(() => {             
             if(allCoins){
-                this.db.doSave(allCoins);
+                db.doSave(allCoins, interval.tableNames[0]);
             }         
         }, interval.tick);
+        }
+        catch(ex){
+            console.log(ex);
+        }
     }
 
     onTickerEvent(args: Array<any>): void {
-         
+
          let obj = util.convertToObject(args);
+         let tableName = interval.tableNames[1];
+         db.doSave(obj, tableName);
 
          //Get current price of the colombian peso
          if(currencyPrice.getPoloniexValue()){             

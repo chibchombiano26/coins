@@ -1,11 +1,12 @@
 // Place your settings in this file to overwrite default and user settings.
 {
   "files.exclude": {
-  "**/.git": true,  
-  "**/**/*.js": true,
-  "**/**/*.js.map": true,
-  "services/**/*.js": true,
-  "models/**/*.js": true,
-  "util/**/*.js": true
+    "**/.git": true,  
+    "**/**/*.js": true,
+    "**/**/*.js.map": true,
+    "services/**/*.js": true,
+    "models/**/*.js": true,
+    "util/**/*.js": true,
+    "rethinkdb_data": true
   }
 }

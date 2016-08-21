@@ -23,6 +23,9 @@ var Polinex = (function () {
         var promise = new Promise(function (resolve, reject) {
             var currencies;
             request(_this.urlAllCoins, function (error, response, body) {
+                if (error) {
+                    return;
+                }
                 currencies = _this.util.iterateProperties(JSON.parse(body));
                 resolve(currencies);
             });

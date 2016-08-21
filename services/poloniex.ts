@@ -32,6 +32,11 @@ import {poloniex} from "../models/model/index"
         let promise = new Promise((resolve, reject) => {
             let currencies : any;
             request(this.urlAllCoins, (error, response, body) =>{
+
+                if(error){
+                    return;
+                }
+
                 currencies = this.util.iterateProperties(JSON.parse(body));                
                 resolve(currencies);
             });            

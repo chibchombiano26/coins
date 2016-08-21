@@ -5,10 +5,10 @@ var index_3 = require("./constants/index");
 var util = new index_2.transformObject();
 var allCoins;
 var currencyPrice = new index_1.currentCurrencyPrice();
+var db = new index_1.rethinkdb();
 var server = (function () {
     function server() {
         var _this = this;
-        this.db = new index_1.rethinkdb();
         this.poloniexService = new index_1.Polinex();
         this.poloniexService.connection.onopen = function (session, detail) {
             session.subscribe("ticker", _this.onTickerEvent);
@@ -17,14 +17,24 @@ var server = (function () {
             coins["USDCOP"] = {};
             allCoins = coins;
         });
-        setInterval(function () {
-            if (allCoins) {
-                _this.db.doSave(allCoins);
-            }
-        }, index_3.interval.tick);
+        this.doSave();
     }
+    server.prototype.doSave = function () {
+        try {
+            setInterval(function () {
+                if (allCoins) {
+                    db.doSave(allCoins, index_3.interval.tableNames[0]);
+                }
+            }, index_3.interval.tick);
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+    };
     server.prototype.onTickerEvent = function (args) {
         var obj = util.convertToObject(args);
+        var tableName = index_3.interval.tableNames[1];
+        db.doSave(obj, tableName);
         //Get current price of the colombian peso
         if (currencyPrice.getPoloniexValue()) {
             allCoins["USDCOP"] = currencyPrice.getPoloniexValue();
