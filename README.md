@@ -31,5 +31,5 @@ servercoin:
   links:
     - dbcoin
   ports:
-    - '8084:8080'
+    - "8086:8081"
   restart: on-failure

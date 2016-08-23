@@ -2,6 +2,7 @@
 var index_1 = require("./services/index");
 var index_2 = require("./util/index");
 var index_3 = require("./constants/index");
+var horizon_server_1 = require("./horizon/horizon_server");
 var util = new index_2.transformObject();
 var allCoins;
 var currencyPrice = new index_1.currentCurrencyPrice();
@@ -17,6 +18,8 @@ var server = (function () {
             coins["USDCOP"] = {};
             allCoins = coins;
         });
+        this.horizon = new horizon_server_1.horizon_server();
+        this.horizon.initServer();
         this.doSave();
     }
     server.prototype.doSave = function () {

@@ -2,14 +2,19 @@
   "dependencies": {},
   "globalDependencies": {
     "autobahn": "registry:dt/autobahn#0.9.6+20160731202440",
+    "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",
     "core-js": "registry:dt/core-js#0.0.0+20160602141332",
+    "express": "registry:dt/express#4.0.0+20160708185218",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160819131900",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
     "lodash": "registry:dt/lodash#4.14.0+20160802150749",
+    "mime": "registry:dt/mime#0.0.0+20160316155526",
     "moment": "registry:dt/moment#2.8.0+20160316155526",
     "moment-node": "registry:dt/moment-node#2.11.1+20160511043338",
     "node": "registry:dt/node#6.0.0+20160815222444",
     "request": "registry:dt/request#0.0.0+20160726020908",
     "rethinkdb": "registry:dt/rethinkdb#1.10.0+20160811111312",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
     "when": "registry:dt/when#2.4.0+20160317120654"
   }
 }

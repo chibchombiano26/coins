@@ -1,6 +1,9 @@
 import { Polinex, rethinkdb, currentCurrencyPrice } from "./services/index";
 import { transformObject } from "./util/index";
 import { interval } from "./constants/index";
+import * as http from "http";
+import * as url from "url";
+import { horizon_server } from "./horizon/horizon_server";
 
 
 let util: transformObject = new transformObject();
@@ -8,9 +11,13 @@ let allCoins:any;
 let currencyPrice = new currentCurrencyPrice();
 let db : rethinkdb = new rethinkdb();
 
+
 class server{
 
     poloniexService : Polinex;
+    horizon : horizon_server;
+    
+
 
     constructor() {
 
@@ -23,6 +30,9 @@ class server{
             coins["USDCOP"] = {};
             allCoins = coins;
         })
+
+        this.horizon = new horizon_server();
+        this.horizon.initServer();
 
         this.doSave();
     }
