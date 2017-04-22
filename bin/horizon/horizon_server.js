@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var horizon = require('@horizon/server');
 var server_1 = require("../express/server");
 var horizon_server = (function () {

@@ -1,6 +1,7 @@
 import {poloniex} from "../models/model/poloniex";
 import { interval } from "../constants/index";
 import { rethinkdb } from "../services/index";
+import * as request from "request";
 
 let YQL = require('yql');
 let poloniexValue: poloniex;
@@ -11,50 +12,28 @@ export class currentCurrencyPrice {
 
     
     constructor() {
-
-        setInterval(() => {
-            this.getValue();
+        setInterval(() => {            
             try{db.doSave(this.getPoloniexValue(), tableName);} catch(ex){}
         }, interval.tick);
-
     }
 
     getPoloniexValue() : poloniex{
         return poloniexValue;
     }
 
-    getValue(){
-        
-        let query = new YQL('select * from yahoo.finance.xchange where pair in ("USDCOP")');
-        let _poloniex;
+    getCurrency(){
+        return new Promise((resolve, reject)=>{
+            request("http://www.apilayer.net/api/live?access_key=df0ae00c0e459d1d2031710b64038d47&format=1", (error, response, body) =>{
+                
+                if(error){
+                    return null;
+                }
 
-        query.exec((err, data) => {
-          let __poloniex =  data.query.results.rate;
-
-          if(__poloniex){
-            _poloniex = {
-                    baseVolume: parseFloat(__poloniex.Rate),
-                    high24hr: 0,
-                    highestBid: 0,
-                    isFrozen: 0,
-                    last: parseFloat(__poloniex.Rate),
-                    low24hr: 0,
-                    lowestAsk: parseFloat(__poloniex.Rate),
-                    percentChange: 0,
-                    quoteVolume: 0,
-                    date: new Date(),
-                    epoch: 0,
-                    currencyPair: "USDCOP"
-            }
-
-            poloniexValue = <poloniex>_poloniex;
-          }
-          else{
-              return new poloniex(0,0,0,0,0,0,0,0,0,new Date(),0, "USDCOP");
-          }
-
-        });
-    }
+                let value = JSON.parse(body).quotes['USDCOP'];
+                resolve(value);
+            })
+        })
+    } 
 
 
 

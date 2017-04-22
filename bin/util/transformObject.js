@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var moment = require("moment");
 var transformObject = (function () {
     function transformObject() {

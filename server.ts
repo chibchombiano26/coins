@@ -10,7 +10,7 @@ let util: transformObject = new transformObject();
 let allCoins:any;
 let currencyPrice = new currentCurrencyPrice();
 let db : rethinkdb = new rethinkdb();
-
+let COP: any;
 
 class server{
 
@@ -31,10 +31,27 @@ class server{
             allCoins = coins;
         })
 
+        /*
         this.horizon = new horizon_server();
         this.horizon.initServer();
-
         this.doSave();
+        */
+
+        this.init();
+    }
+
+    init(){
+
+        //first call
+        currencyPrice.getCurrency().then(function(value){
+            COP = value;
+        })
+
+        setInterval(()=>{
+            currencyPrice.getCurrency().then(function(value){
+                COP = value;
+            })
+        }, interval.copTicket);
     }
 
     doSave(){
@@ -52,9 +69,14 @@ class server{
 
     onTickerEvent(args: Array<any>): void {
 
+        console.log(args);
+        
+        /*
          let obj = util.convertToObject(args);
+         obj['COP'] = obj.last * COP;
+
          let tableName = interval.tableNames[1];
-         db.doSave(obj, tableName);
+         //db.doSave(obj, tableName);
 
          //Get current price of the colombian peso
          if(currencyPrice.getPoloniexValue()){             
@@ -65,6 +87,7 @@ class server{
          if (allCoins) {
             allCoins[obj.currencyPair] = obj;
         }
+      */
         
      }
  

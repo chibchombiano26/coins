@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var poloniex = (function () {
     function poloniex(baseVolume, high24hr, highestBid, isFrozen, last, low24hr, lowestAsk, percentChange, quoteVolume, date, epoch, currencyPair) {
         this.baseVolume = baseVolume;

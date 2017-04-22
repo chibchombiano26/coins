@@ -5,10 +5,8 @@ const path = require('path');
 
 export class expressServer{
 
-    constructor() {
-         
+    constructor() {         
     }
-
 
     createServer(): Promise<any>{
         let promise = new Promise((resolve, reject) => {

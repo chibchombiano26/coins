@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference path="../typings/index.d.ts" />
 var autobahn = require("autobahn");
 var request = require("request");
@@ -12,10 +13,6 @@ var Polinex = (function () {
             url: this.wsuri,
             realm: "realm1"
         });
-        //Create this event on the client
-        /*this.connection.onopen = (session, detail) =>{
-            session.subscribe("ticker", this.onTickerEvent)
-        }*/
         this.connection.open();
     }
     Polinex.prototype.getAllCoins = function () {

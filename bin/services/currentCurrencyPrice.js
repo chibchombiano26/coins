@@ -1,7 +1,8 @@
 "use strict";
-var poloniex_1 = require("../models/model/poloniex");
+Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../constants/index");
 var index_2 = require("../services/index");
+var request = require("request");
 var YQL = require('yql');
 var poloniexValue;
 var db = new index_2.rethinkdb();
@@ -10,7 +11,6 @@ var currentCurrencyPrice = (function () {
     function currentCurrencyPrice() {
         var _this = this;
         setInterval(function () {
-            _this.getValue();
             try {
                 db.doSave(_this.getPoloniexValue(), tableName);
             }
@@ -20,31 +20,15 @@ var currentCurrencyPrice = (function () {
     currentCurrencyPrice.prototype.getPoloniexValue = function () {
         return poloniexValue;
     };
-    currentCurrencyPrice.prototype.getValue = function () {
-        var query = new YQL('select * from yahoo.finance.xchange where pair in ("USDCOP")');
-        var _poloniex;
-        query.exec(function (err, data) {
-            var __poloniex = data.query.results.rate;
-            if (__poloniex) {
-                _poloniex = {
-                    baseVolume: parseFloat(__poloniex.Rate),
-                    high24hr: 0,
-                    highestBid: 0,
-                    isFrozen: 0,
-                    last: parseFloat(__poloniex.Rate),
-                    low24hr: 0,
-                    lowestAsk: parseFloat(__poloniex.Rate),
-                    percentChange: 0,
-                    quoteVolume: 0,
-                    date: new Date(),
-                    epoch: 0,
-                    currencyPair: "USDCOP"
-                };
-                poloniexValue = _poloniex;
-            }
-            else {
-                return new poloniex_1.poloniex(0, 0, 0, 0, 0, 0, 0, 0, 0, new Date(), 0, "USDCOP");
-            }
+    currentCurrencyPrice.prototype.getCurrency = function () {
+        return new Promise(function (resolve, reject) {
+            request("http://www.apilayer.net/api/live?access_key=df0ae00c0e459d1d2031710b64038d47&format=1", function (error, response, body) {
+                if (error) {
+                    return null;
+                }
+                var value = JSON.parse(body).quotes['USDCOP'];
+                resolve(value);
+            });
         });
     };
     return currentCurrencyPrice;

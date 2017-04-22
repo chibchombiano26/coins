@@ -1,36 +1,19 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference path="../typings/index.d.ts" />
 var r = require("rethinkdb");
-var _ = require("lodash");
 var index_1 = require("../constants/index");
+var db;
 var rethinkdb = (function () {
     function rethinkdb() {
-        var _this = this;
-        setTimeout(function () {
-            console.log("Connecting...");
-            _this.connecDb();
-        }, index_1.interval.tickCreation);
+        this.connectDb();
     }
-    rethinkdb.prototype.connecDb = function () {
-        var _this = this;
+    rethinkdb.prototype.connectDb = function () {
         console.log("Connecting...", process.env.RDB_HOST || index_1.interval.dbConnection, process.env.RDB_PORT || index_1.interval.dbConnectionPort);
         r.connect({
             host: process.env.RDB_HOST || index_1.interval.dbConnection,
             port: process.env.RDB_PORT || index_1.interval.dbConnectionPort,
         }, function (err, conn) {
-            //Validate the connection to rethink db engine, if not wait while is connected
-            if (err) {
-                setTimeout(function () {
-                    _this.connecDb();
-                    console.log("Timeout fired");
-                }, index_1.interval.tickCreation);
-                return;
-            }
-            else {
-                _this.conn = conn;
-                _this.checkExistDb();
-                _this.cleanTick();
-            }
         });
     };
     rethinkdb.prototype.cleanTick = function () {
@@ -45,27 +28,6 @@ var rethinkdb = (function () {
         }
         catch (ex) {
             console.log(ex);
-        }
-    };
-    rethinkdb.prototype.checkExistDb = function () {
-        var _this = this;
-        if (this.conn) {
-            console.log("Listing databases....");
-            r.dbList().run(this.conn).then(function (list) {
-                var existDb = list.indexOf(index_1.interval.dbName);
-                if (existDb == -1) {
-                    r.dbCreate(index_1.interval.dbName).run(_this.conn).then(function () {
-                        _.each(index_1.interval.tableNames, function (e) {
-                            _this.createTable(e);
-                        });
-                    });
-                }
-            });
-        }
-    };
-    rethinkdb.prototype.createTable = function (tableName) {
-        if (this.conn) {
-            r.db(index_1.interval.dbName).tableCreate(tableName).run(this.conn);
         }
     };
     rethinkdb.prototype.doSave = function (data, tableName) {

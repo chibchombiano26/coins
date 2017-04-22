@@ -2,11 +2,11 @@
 var index_1 = require("./services/index");
 var index_2 = require("./util/index");
 var index_3 = require("./constants/index");
-var horizon_server_1 = require("./horizon/horizon_server");
 var util = new index_2.transformObject();
 var allCoins;
 var currencyPrice = new index_1.currentCurrencyPrice();
 var db = new index_1.rethinkdb();
+var COP;
 var server = (function () {
     function server() {
         var _this = this;
@@ -18,10 +18,24 @@ var server = (function () {
             coins["USDCOP"] = {};
             allCoins = coins;
         });
-        this.horizon = new horizon_server_1.horizon_server();
+        /*
+        this.horizon = new horizon_server();
         this.horizon.initServer();
         this.doSave();
+        */
+        this.init();
     }
+    server.prototype.init = function () {
+        //first call
+        currencyPrice.getCurrency().then(function (value) {
+            COP = value;
+        });
+        setInterval(function () {
+            currencyPrice.getCurrency().then(function (value) {
+                COP = value;
+            });
+        }, index_3.interval.copTicket);
+    };
     server.prototype.doSave = function () {
         try {
             setInterval(function () {
@@ -35,16 +49,24 @@ var server = (function () {
         }
     };
     server.prototype.onTickerEvent = function (args) {
-        var obj = util.convertToObject(args);
-        var tableName = index_3.interval.tableNames[1];
-        db.doSave(obj, tableName);
-        //Get current price of the colombian peso
-        if (currencyPrice.getPoloniexValue()) {
-            allCoins["USDCOP"] = currencyPrice.getPoloniexValue();
-        }
-        if (allCoins) {
+        console.log(args);
+        /*
+         let obj = util.convertToObject(args);
+         obj['COP'] = obj.last * COP;
+
+         let tableName = interval.tableNames[1];
+         //db.doSave(obj, tableName);
+
+         //Get current price of the colombian peso
+         if(currencyPrice.getPoloniexValue()){
+             allCoins["USDCOP"] =  currencyPrice.getPoloniexValue();
+         }
+
+
+         if (allCoins) {
             allCoins[obj.currencyPair] = obj;
         }
+      */
     };
     return server;
 }());
